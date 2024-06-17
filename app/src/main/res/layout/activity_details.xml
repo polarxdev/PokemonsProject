@@ -10,7 +10,7 @@
     tools:context=".DetailsActivity">
 
     <ImageButton
-        android:id="@+id/comebackButton"
+        android:id="@+id/comeback_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="30dp"
