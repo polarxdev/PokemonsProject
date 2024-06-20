@@ -22,9 +22,6 @@ class DetailsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        val bundle:Bundle? = intent.extras
-        val id = bundle?.getInt("id")
-
         val data = hashMapOf(
             1 to hashMapOf(
                 "name" to R.string.bulbasaur,
@@ -55,20 +52,22 @@ class DetailsActivity : AppCompatActivity() {
             )
         )
 
-        id.let {
-            val pokeData = data[it]
-            if (pokeData != null){
-                binding.name.text = getString(pokeData["name"] as Int)
-                binding.weight.text = pokeData["weight"].toString()
-                binding.height.text = pokeData["height"].toString()
-                binding.category.text = pokeData["category"].toString()
-                binding.abilities.text = pokeData["abilities"].toString()
-                binding.type.text = pokeData["type"].toString()
-                binding.photo.setImageResource(pokeData["photo"] as Int)
-            }
-            else{
+        val bundle:Bundle? = intent.extras
+        val id = bundle?.getInt("id")
+
+        with(binding){
+            val pokeData = data[id]
+            pokeData?.let{
+                name.text = getString(pokeData["name"] as Int)
+                weight.text = "${pokeData["weight"].toString()}kg"
+                height.text = "${pokeData["height"].toString()}cm"
+                category.text = pokeData["category"].toString()
+                abilities.text = pokeData["abilities"].toString()
+                type.text = pokeData["type"].toString()
+                photo.setImageResource(pokeData["photo"] as Int)
+            }?: run{
                 Log.d("pokeData", "pokeData is null")
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DetailsActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
     }
