@@ -3,4 +3,7 @@
     <string name="caterpie">Caterpie</string>
     <string name="charmelion">Charmelion</string>
     <string name="bulbasaur">Bulbasaur</string>
+    <string name="category">Category</string>
+    <string name="abilities">Abilities</string>
+    <string name="type">Type</string>
 </resources>
