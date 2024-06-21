@@ -10,7 +10,6 @@
     android:background="@color/white"
     tools:context=".ListActivity">
 
-
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
