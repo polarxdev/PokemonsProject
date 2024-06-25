@@ -3,7 +3,7 @@ package com.example.pokemonsproject
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-data class PokemonsData(
+data class Pokemon(
     val id: Int,
     @StringRes val name: Int,
     val weight: Double,
@@ -14,9 +14,9 @@ data class PokemonsData(
     @DrawableRes val photo: Int
 )
 
-object Pokemon{
+object PokemonObj{
     private val pokemons = listOf(
-        PokemonsData(
+        Pokemon(
             id = 1,
             name = R.string.bulbasaur,
             weight = 6.9,
@@ -26,7 +26,7 @@ object Pokemon{
             type = "Grass / Poison",
             photo = R.drawable.bulbasaur
         ),
-        PokemonsData(
+        Pokemon(
             id = 2,
             name = R.string.charmelion,
             weight = 19.0,
@@ -36,7 +36,7 @@ object Pokemon{
             type = "Fire",
             photo = R.drawable.charmelion
         ),
-        PokemonsData(
+        Pokemon(
             id = 3,
             name = R.string.caterpie,
             weight = 2.9,

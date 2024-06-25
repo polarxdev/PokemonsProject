@@ -3,31 +3,35 @@ package com.example.pokemonsproject
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokemonsproject.databinding.ActivityListBinding
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity(), PokemonListAdapter.Listener {
 
     private lateinit var binding: ActivityListBinding
+    private lateinit var pokemons: List<Pokemon>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setOnClickListenerForElement(binding.layout1, 1)
-        setOnClickListenerForElement(binding.layout2, 2)
-        setOnClickListenerForElement(binding.layout3, 3)
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            pokemons = PokemonObj.getPokemonsList().values.toList()
+            adapter = PokemonListAdapter(pokemons, this@ListActivity)
+        }
     }
 
-    fun setOnClickListenerForElement(element: View, id: Int){
-        element.setOnClickListener{
-            val intent = Intent(this, DetailsActivity::class.java)
-            intent.putExtra("id", id)
-            startActivity(intent)
-        }
+    fun setOnClickListenerForElement(id: Int){
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
+    }
+
+    override fun onClick(pokemon: Pokemon) {
+        setOnClickListenerForElement(pokemon.id)
     }
 }

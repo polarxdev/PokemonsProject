@@ -19,7 +19,7 @@ class DetailsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        val pokemon = Pokemon.getPokemon(intent.getIntExtra("id", 1))
+        val pokemon = PokemonObj.getPokemon(intent.getIntExtra("id", 1))
 
         with(binding){
             pokemon?.let{pokemon ->
