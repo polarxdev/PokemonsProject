@@ -2,15 +2,16 @@ package com.example.pokemonsproject
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemonsproject.databinding.ItemPokemonBinding
 
-class PokemonListAdapter(
-    private var pokemons: List<Pokemon>, val listener: Listener
-): RecyclerView.Adapter<PokemonListAdapter.PokemonListViewHolder>() {
-    private var onClickListener: OnClickListener? = null
+class PokemonListAdapter(val listener: Listener):
+    RecyclerView.Adapter<PokemonListAdapter.PokemonListViewHolder>() {
+
+    private var pokemons = emptyList<Pokemon>()
+
     class PokemonListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         private var binding: ItemPokemonBinding = ItemPokemonBinding.bind(itemView)
@@ -33,6 +34,13 @@ class PokemonListAdapter(
         holder.bind(pokemons[position], listener)
     }
     override fun getItemCount(): Int = pokemons.size
+
+    fun setData(newPokemonsList: List<Pokemon>){
+        val diffUtil = MyDiffUtil(pokemons, newPokemonsList)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        pokemons = newPokemonsList
+        diffResults.dispatchUpdatesTo(this)
+    }
 
     interface Listener {
         fun onClick(pokemon: Pokemon)

@@ -13,15 +13,20 @@ class ListActivity : AppCompatActivity(), PokemonListAdapter.Listener {
     private lateinit var binding: ActivityListBinding
     private lateinit var pokemons: List<Pokemon>
 
+    private val myAdapter by lazy { PokemonListAdapter(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        pokemons = PokemonObj.getPokemonsList().values.toList()
+        myAdapter.setData(pokemons)
+
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             pokemons = PokemonObj.getPokemonsList().values.toList()
-            adapter = PokemonListAdapter(pokemons, this@ListActivity)
+            adapter = myAdapter
         }
     }
 
