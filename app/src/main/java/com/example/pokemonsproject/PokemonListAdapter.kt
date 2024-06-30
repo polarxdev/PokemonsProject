@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemonsproject.databinding.ItemPokemonBinding
 
-class PokemonListAdapter(val listener: Listener):
+class PokemonListAdapter(val pokemonClickListener: PokemonClickListener):
     RecyclerView.Adapter<PokemonListAdapter.PokemonListViewHolder>() {
 
     private var pokemons = emptyList<Pokemon>()
@@ -15,12 +15,12 @@ class PokemonListAdapter(val listener: Listener):
     class PokemonListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         private var binding: ItemPokemonBinding = ItemPokemonBinding.bind(itemView)
-        fun bind(pokemon: Pokemon, listener: Listener) = with(binding){
+        fun bind(pokemon: Pokemon, clickListener: PokemonClickListener) = with(binding){
             name.setText(pokemon.name)
             photo.setImageResource(pokemon.photo)
 
             itemView.setOnClickListener{
-                listener.onClick(pokemon)
+                clickListener.onClick(pokemon)
             }
         }
     }
@@ -31,7 +31,7 @@ class PokemonListAdapter(val listener: Listener):
     }
 
     override fun onBindViewHolder(holder: PokemonListViewHolder, position: Int) {
-        holder.bind(pokemons[position], listener)
+        holder.bind(pokemons[position], pokemonClickListener)
     }
     override fun getItemCount(): Int = pokemons.size
 
@@ -42,7 +42,8 @@ class PokemonListAdapter(val listener: Listener):
         diffResults.dispatchUpdatesTo(this)
     }
 
-    interface Listener {
+    fun interface PokemonClickListener {
         fun onClick(pokemon: Pokemon)
     }
+
 }
